@@ -1,25 +1,14 @@
-
 <div class='container'>
 
   <h3>Please provide a threat rating for each word.</h3>
   <h4>(How much does each word represent
-      the potential for harm, loss or damage for you?)</h4>
+       the potential for harm, loss or damage for you?)</h4>
 
   <div>
     <%= form_tag("/application/create", method: "post") do %>
-      <div class="form-group row no-margin">
-        <label class='col-md-2 radio control-label inline'></label>
-        <span class='col-md-5 row'>
-            <span class='col-md-3 centered left-label'>Least Threatening</span>
-            <% 3.times do |n| %>
-              <span class='col-md-1'>
-              </span>
-            <% end %>
-            <span class='col-md-3 centered right-label'>Most Threatening</span>
-        </span>
-      </div>
-      <% @words.each do |word| %>
-        <div class="form-group row no-margin">
+      <% @words.each_with_index do |word, n| %>
+       <%= render('radio_labels') if n % 5 == 0 %>
+       <div class="form-group row">
           <label class='col-md-2 radio control-label inline'><%= word %></label>
           <span class='col-md-5 row'>
               <% 9.times do |n| %>
