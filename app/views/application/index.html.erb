@@ -1,0 +1,41 @@
+
+<div class='container'>
+
+  <h3>Please rate the following words:</h3>
+
+  <div>
+    <%= form_tag("/application/create", method: "post") do %>
+      <div class="form-group row no-margin">
+        <label class='col-md-2 radio control-label inline'></label>
+        <span class='col-md-5 row'>
+            <span class='col-md-3 centered left-label'>Least Threatening</span>
+            <% 3.times do |n| %>
+              <span class='col-md-1'>
+              </span>
+            <% end %>
+            <span class='col-md-3 centered right-label'>Most Threatening</span>
+        </span>
+      </div>
+      <% @words.each do |word| %>
+        <div class="form-group row no-margin">
+          <label class='col-md-2 radio control-label inline'><%= word %></label>
+          <span class='col-md-5 row'>
+              <% 9.times do |n| %>
+                <label class='col-md-1'>
+                  <%= radio_button_tag word, n.to_s, false, class: 'form-control no-outline' %>
+                </label>
+              <% end %>
+          </span>
+        </div>
+      <% end %>
+      <div class='row spacer'></div>
+      <div class='row'>
+        <div class=col-md-3></div>
+        <div class=col-md-7>
+          <button type='submit' class='btn btn-primary btn-lg'>Submit</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+  <div class='another-page'></div>
+</div>

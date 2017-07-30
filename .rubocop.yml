@@ -1,0 +1,87 @@
+require: rubocop-rspec
+
+AllCops:
+  Exclude:
+    - bin/**/*
+    - db/schema.rb
+    - lib/generators/rails/api_scaffold_controller/templates/controller.rb
+    - log/**/*
+    - tmp/**/*
+    - vendor/**/*
+  TargetRubyVersion: 2.3
+
+FrozenStringLiteralComment:
+  Enabled: false
+
+Metrics/LineLength:
+  Max: 110
+
+Rails:
+  Enabled: true
+
+RSpec/DescribeClass:
+  Exclude:
+    - spec/views/api/**/*
+
+Style/AutoResourceCleanup:
+  Enabled: true
+
+Style/CollectionMethods:
+  Enabled: true
+
+Style/Copyright:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/DotPosition:
+  EnforcedStyle: trailing
+
+Style/Encoding:
+  Enabled: false
+
+Style/ExtraSpacing:
+  Enabled: true
+
+Style/FirstArrayElementLineBreak:
+  Enabled: false
+
+Style/FirstHashElementLineBreak:
+  Enabled: false
+
+Style/FirstMethodArgumentLineBreak:
+  Enabled: false
+
+Style/FirstMethodParameterLineBreak:
+  Enabled: false
+
+Style/InlineComment:
+  Enabled: false
+
+Style/MethodCalledOnDoEndBlock:
+  Enabled: true
+  Exclude:
+    - spec/**/*
+
+Style/MissingElse:
+  Enabled: true
+  EnforcedStyle: case
+
+Style/MultilineAssignmentLayout:
+  Enabled: false
+
+Style/OptionHash:
+  Enabled: true
+
+Style/Send:
+  Enabled: true
+
+Style/StringMethods:
+  Enabled: true
+
+Style/SymbolArray:
+  Enabled: true
+
+Performance/Casecmp:
+  Enabled: false # you will pry x.downcase == y out of my cold dead hands
