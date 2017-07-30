@@ -22,6 +22,6 @@ class ApplicationController < ActionController::Base
       @answers.each { |word, rating| csv << [word, rating] }
     end
 
-    @result = `Rscript /app/bin/rscript/threatwords.r #{sess_token}`
+    @result = `Rscript /app/bin/rscript/threatwords.r #{sess_token}`.split(' ')[1]
   end
 end
