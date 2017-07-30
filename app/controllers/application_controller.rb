@@ -21,6 +21,7 @@ class ApplicationController < ActionController::Base
     CSV.open("/tmp/#{sess_token}.csv", 'w') do |csv|
       @answers.each { |word, rating| csv << [word, rating] }
     end
+
     @result = `rscript ./bin/rscript/threatwords.r #{sess_token}`.split(' ')[1]
   end
 end
