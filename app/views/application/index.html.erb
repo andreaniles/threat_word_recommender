@@ -11,11 +11,11 @@
        <div class="form-group row">
           <label class='col-md-2 radio control-label inline'><%= word %></label>
           <span class='col-md-5 row'>
+            <div class='buttons-container'>
               <% 9.times do |n| %>
-                <label class='col-md-1'>
-                  <%= radio_button_tag word, n.to_s, false, class: 'form-control no-outline' %>
-                </label>
+                  <span style='display:inline-block' class='r-button'><%= radio_button_tag word, n.to_s, false, class: 'form-control no-outline inline' %></span>
               <% end %>
+            </div>
           </span>
         </div>
       <% end %>
@@ -28,5 +28,4 @@
       </div>
     <% end %>
   </div>
-  <div class='another-page'></div>
 </div>

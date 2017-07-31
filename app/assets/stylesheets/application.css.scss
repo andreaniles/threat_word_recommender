@@ -35,21 +35,23 @@
   position: fixed;
 }
 
+.buttons-container {
+  width: 500px;
+}
+.r-button {
+  width: 50px;
+}
 .left-label {
   color: green;
   width: 100px;
   text-align: right;
-  position: relative;
-  left: -63px;
-  top:10px;
+  float:left;
 }
 .right-label {
   color: red;
   width: 100px;
   text-align: left;
-  position: relative;
-  left: 20px;
-  top: 10px;
+  float: right;
 }
 .no-outline {
   outline: none;
