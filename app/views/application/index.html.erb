@@ -6,7 +6,7 @@
   </header>
 
   <div>
-    <%= form_tag("/application/create", method: "post") do %>
+    <%= form_tag("/application/create", method: "post", class: 'button-form') do %>
       <% @words.each_with_index do |word, n| %>
        <div class="form-group row">
           <label class='col-md-2 radio control-label inline'><%= word %></label>

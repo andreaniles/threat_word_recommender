@@ -35,6 +35,13 @@
   position: fixed;
 }
 
+.button-form {
+  margin-top: 150px;
+}
+.spacer {
+  height: 750px;
+  width: 100%;
+}
 .buttons-container {
   width: 500px;
 }
@@ -46,12 +53,16 @@
   width: 100px;
   text-align: right;
   float:left;
+  position: relative;
+  left:-80px;
 }
 .right-label {
   color: red;
   width: 100px;
   text-align: left;
   float: right;
+  position: relative;
+  left:30px;
 }
 .no-outline {
   outline: none;
