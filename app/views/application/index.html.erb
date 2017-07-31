@@ -1,12 +1,13 @@
 <div class='container'>
-
-  <h3>Please provide a threat rating for each word.</h3>
-  <h4>(How much does each word represent the potential for harm, loss or damage for you?)</h4>
+  <header class="navbar navbar-default navbar-fixed-top container" role="banner">
+    <h3 class='heading-description'>Please provide a threat rating for each word.</h3>
+    <h4 class='heading-description'>(How much does each word represent the potential for harm, loss or damage for you?)</h4>
+    <%= render('radio_labels') %>
+  </header>
 
   <div>
     <%= form_tag("/application/create", method: "post") do %>
       <% @words.each_with_index do |word, n| %>
-       <%= render('radio_labels') if n % 5 == 0 %>
        <div class="form-group row">
           <label class='col-md-2 radio control-label inline'><%= word %></label>
           <span class='col-md-5 row'>
