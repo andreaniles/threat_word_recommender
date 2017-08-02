@@ -3,4 +3,6 @@ Rails.application.routes.draw do
 
   get 'application/index'
   post 'application/create'
+
+  get 'api/words'
 end
