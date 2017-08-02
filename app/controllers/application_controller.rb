@@ -23,6 +23,7 @@ class ApplicationController < ActionController::Base
     end
 
     result = `Rscript bin/rscript/threatwords.r #{sess_token}`
-    @result = result.split(' ')[1]
+    puts result
+    @result = result.gsub(/\[\d+\]/, '').split(/[ \n]+/).join(',')
   end
 end
