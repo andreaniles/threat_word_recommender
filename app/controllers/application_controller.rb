@@ -22,8 +22,9 @@ class ApplicationController < ActionController::Base
       @answers.each { |word, rating| csv << [word, rating] }
     end
 
-    result = `Rscript bin/rscript/threatwords.r #{sess_token}`
-    puts result
-    @result = result.gsub(/\[\d+\]/, '').split(/[ \n]+/).join(',')
+    # result = `Rscript bin/rscript/threatwords.r #{sess_token}`
+    # puts result
+    # @result = result.gsub(/\[\d+\]/, '').split(/[ \n]+/).join(',')
+    @result = Rails.root
   end
 end
