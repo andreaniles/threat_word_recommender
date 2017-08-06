@@ -4,6 +4,7 @@ class WordRecommender
   end
 
   def recommended_words
+    return ['nothing entered'] unless @ratings.any?
     write_ratings_to_temp_file
     result = `Rscript #{Rails.root}/bin/rscript/threatwords.r #{Rails.root} #{file_name}`
     parse_result(result)
@@ -25,6 +26,7 @@ class WordRecommender
 
   def write_ratings_to_temp_file
     CSV.open(file_name, 'w') do |csv|
+      csv << %w(word rating)
       @ratings.each { |word, rating| csv << [word, rating] }
     end
   end

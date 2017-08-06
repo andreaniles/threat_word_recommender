@@ -3,7 +3,7 @@
 root_path = commandArgs(trailingOnly=TRUE)[1]
 file_name = commandArgs(trailingOnly=TRUE)[2]
 
-ratings = read.csv(file = file_name, header=FALSE, sep=',', colClasses=c("character", "numeric"))
+ratings = read.csv(file = file_name, header=TRUE, sep=',', colClasses=c("character", "numeric"))
 
 # file_name = paste('/app/tmp/', sess_token,'.csv', sep='')
 
