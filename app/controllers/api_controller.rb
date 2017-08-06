@@ -2,6 +2,10 @@ class ApiController < ActionController::Base
   protect_from_forgery with: :exception
 
   def words
-    render json: [1,2,3]
+    words_with_values = ApplicationController::WORDS.select { |word| params[word].present? }
+    @ratings = params.slice(*words_with_values)
+    @result = WordRecommender.new(@ratings).recommended_words
+
+    render json: @result
   end
 end

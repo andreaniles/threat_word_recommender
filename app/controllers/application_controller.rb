@@ -1,4 +1,5 @@
 require 'csv'
+require Rails.root.join('app', 'services', 'word_recommender').to_s
 
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
@@ -16,15 +17,7 @@ class ApplicationController < ActionController::Base
 
   def create
     words_with_values = WORDS.select { |word| params[word].present? }
-    @answers = params.slice(*words_with_values)
-    sess_token = SecureRandom.urlsafe_base64
-    file_name = Rails.root.join('tmp', "#{sess_token}.csv")
-    CSV.open(file_name, 'w') do |csv|
-      @answers.each { |word, rating| csv << [word, rating] }
-    end
-
-    result = `Rscript #{Rails.root}/bin/rscript/threatwords.r #{Rails.root} #{file_name}`
-    puts result
-    @result = result.gsub(/\[\d+\]/, '').split(/[ \n]+/).join(',')
+    @ratings = params.slice(*words_with_values)
+    @result = WordRecommender.new(@ratings).recommended_words
   end
 end
