@@ -18,13 +18,13 @@ class ApplicationController < ActionController::Base
     words_with_values = WORDS.select { |word| params[word].present? }
     @answers = params.slice(*words_with_values)
     sess_token = SecureRandom.urlsafe_base64
-    CSV.open(Rails.root.join('tmp', "#{sess_token}.csv"), 'w') do |csv|
+    file_name = Rails.root.join('tmp', "#{sess_token}.csv")
+    CSV.open(file_name, 'w') do |csv|
       @answers.each { |word, rating| csv << [word, rating] }
     end
 
-    # result = `Rscript bin/rscript/threatwords.r #{sess_token}`
-    # puts result
-    # @result = result.gsub(/\[\d+\]/, '').split(/[ \n]+/).join(',')
-    @result = Rails.root
+    result = `Rscript #{Rails.root}/bin/rscript/threatwords.r #{Rails.root} #{file_name}`
+    puts result
+    @result = result.gsub(/\[\d+\]/, '').split(/[ \n]+/).join(',')
   end
 end

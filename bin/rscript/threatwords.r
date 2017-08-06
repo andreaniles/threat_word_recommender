@@ -1,14 +1,14 @@
 #!/usr/bin/env Rscript
 
-sess_token = commandArgs(trailingOnly=TRUE)[1]
-
-file_name = paste('tmp/', sess_token,'.csv', sep='')
+root_path = commandArgs(trailingOnly=TRUE)[1]
+file_name = commandArgs(trailingOnly=TRUE)[2]
 
 ratings = read.csv(file = file_name, header=FALSE, sep=',', colClasses=c("character", "numeric"))
 
 # file_name = paste('/app/tmp/', sess_token,'.csv', sep='')
 
-training.data <- read.csv("vendor/norm_mturk_ratings.csv", sep=",", header=TRUE)
+training_file = paste(root_path, "/vendor/norm_mturk_ratings.csv", sep="")
+training.data <- read.csv(training_file, sep=",", header=TRUE)
 training.data <- training.data[,-1]
 
 # normalize the data
