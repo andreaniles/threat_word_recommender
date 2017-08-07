@@ -19,7 +19,7 @@ datasetsize = 837 #seq(from = 100, to = 800, by = 100) #l
 simvalue = .3 # seq(from = .2, to = .4, by = .05) #o
 
 filewide = paste(root_path, "/vendor/ratings_forrecommender_threat.csv", sep='')
-
+print filewide
 ##FUNCTIONS
 
 # normalize the data
@@ -40,7 +40,7 @@ discount_factor <- function(x) {
 }
 
 ## GET DATA
-
+print file_name
 ratings <- read.csv(ratings_file_name, header=T, sep=",", colClasses=c("character", "numeric"))
 
 user.word.ratings <- ratings
