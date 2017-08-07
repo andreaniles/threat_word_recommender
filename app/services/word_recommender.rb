@@ -13,7 +13,7 @@ class WordRecommender
   private
 
   def parse_result(r_script_output)
-    r_script_output.gsub(/\[\d+\] /, '').delete('"').split(/[ \n]+/).map(&:strip).select(&:present?)
+    r_script_output.gsub(/\[\d+\,] /, '').delete('"').split(/[ \n]+/).map(&:strip).select(&:present?)[1..-1]
   end
 
   def sess_token
