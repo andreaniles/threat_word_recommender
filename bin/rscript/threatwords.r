@@ -2,23 +2,37 @@
 rm(list=ls())
 options(warn=-1)
 
-root_path = commandArgs(trailingOnly=TRUE)[1]
-ratings_file_name = commandArgs(trailingOnly=TRUE)[2]
+args <- commandArgs(trailingOnly=TRUE)
 
+if(length(args)>0)) {
+  root_path = args[1]
+  ratings_file_name = args[2]
+  recommender_version = args[3]
+  numbertorecommend = if (length(args) < 4) 60 else args[4]
+}
+else
+{
+  root_path = "/Users/andreaniles/threat_word_recommender"
+  ratings_file_name = "/Users/andreaniles/threat_word_recommender/test/fixtures/test.csv"
+  recommender_version = 1
+  numbertorecommend = 60
+}
 
 ##################################
 ###### Recommender System ########
 ##################################
 
-numbertorecommend = 60
 numwordsgiven = 55 
-popamp = 1.5 #seq(from = 0, to = 3, by = .5) # m
-neighbors = 30 #seq(from = 10, to = 50, by = 10) # k
-alpha = 1 #seq(from = .75, to = 3, by = .25) #n
-datasetsize = 837 #seq(from = 100, to = 800, by = 100) #l
-simvalue = .3 # seq(from = .2, to = .4, by = .05) #o
+popamp = 1.5 
+neighbors = 50 
+alpha = 1 
+datasetsize = 837 
+simvalue = .25 
 
 filewide = paste(root_path, "/vendor/ratings_forrecommender_threat.csv", sep='')
+LocalWordsRemove = paste(root_path, "/vendor/LocalAssessWords.csv", sep='')
+RemoteWordsRemove = paste(root_path, "/vendor/RemoteAssessWords.csv", sep='')
+WordsPaired = paste(root_path, "/vendor/WordPairsFrequencyMatch_N=513.csv", sep='')
 
 ##FUNCTIONS
 
@@ -49,6 +63,10 @@ rownames(user.word.ratings) <- ratings[,1]
 user.word.ratings <- t(user.word.ratings)
 
 training.data <- read.csv(filewide, sep=",", header=T)
+local.words.remove <- read.csv(LocalWordsRemove, sep = ",", header=F, stringsAsFactors = FALSE)
+remote.words.remove <- read.csv(RemoteWordsRemove, sep = ",", header=F, stringsAsFactors = FALSE)
+words.paired <- read.csv(WordsPaired, sep = ",", header=T, stringsAsFactors = FALSE)
+
 
 # add rownames
 data.rownames <- training.data
@@ -135,6 +153,24 @@ norm.user.ratings <- center_rowmeans(user.word.ratings)
      }
 
     ratingsforrec <- as.matrix(predratings)
-    recs.and.ratings <- t(as.matrix(head(((ratingsforrec[,order(as.numeric(ratingsforrec), decreasing=TRUE)])), n=numbertorecommend)))
-    recs <- as.matrix(colnames(recs.and.ratings))
+    recs.and.ratings <- t(as.matrix(((ratingsforrec[,order(as.numeric(ratingsforrec), decreasing=TRUE)]))))
+    recsall <- as.matrix(colnames(recs.and.ratings))
+    if(recommender_version==1)
+    {
+      recs <- head(as.matrix(recsall[!recsall %in% as.matrix(local.words.remove)]), n=numbertorecommend)
+    }
+    if(recommender_version==2)
+    {
+      recs <- head(as.matrix(recsall[!recsall %in% as.matrix(remote.words.remove)]), n=numbertorecommend)
+    }
+    if(recommender_version==3)
+    {
+      order = c(1:nrow(recsall)) + 10000
+      recsall <- as.matrix(cbind(recsall,order))
+      colnames(recsall) <- c("word_threat","order")
+      recs <- head(as.matrix(recsall), n=numbertorecommend)
+      recs.paired <- words.paired[words.paired[,1] %in% recs,]
+      recs.paired.order <- merge(recsall,recs.paired, by = "word_threat")
+      recs <- recs.paired.order[order(recs.paired.order$order),c(1,3)]
+    }
     print(recs)
