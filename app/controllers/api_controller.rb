@@ -4,9 +4,8 @@ class ApiController < ActionController::Base
   def words
     words_with_values = ApplicationController::WORDS.select { |word| params[word].present? }
     @ratings = params.slice(*words_with_values)
-    @result = WordRecommender.new(@ratings).recommended_words
-puts '*'*100
-puts @result
+    mode = params[:location] == 'local' ? 1 : 2
+    @result = WordRecommender.new(@ratings, mode).recommended_words
     render json: @result
   end
 end

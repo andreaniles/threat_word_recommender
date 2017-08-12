@@ -1,8 +1,14 @@
 <div class='container'>
   <h4>Recommended words:</h4>
-  <% @result.each do |w| %>
+  <div class='row'>
+    <span class='col-md-2 h5'>Threat Word</span>
+    <span class='col-md-2 h5'>Neutral Word</span>
+  </div>
+  <% @result.each do |threat, neutral| %>
+
     <div class='row'>
-      <%= w %>
+      <span class='col-md-2'><%= threat %></span>
+      <span class='col-md-2'><%= neutral %></span>
     </div>
   <% end %>
 </div>

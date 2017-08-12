@@ -13,11 +13,12 @@ class ApplicationController < ActionController::Base
              PARALYZE DANGER WEAPON CRASH ACCIDENT BRUTAL INCURABLE GUILLOTINE).freeze
   def index
     @words = WORDS
+    @num_to_recommend = 60
   end
 
   def create
     words_with_values = WORDS.select { |word| params[word].present? }
     @ratings = params.slice(*words_with_values)
-    @result = WordRecommender.new(@ratings).recommended_words
+    @result = WordRecommender.new(@ratings, 3, params[:num_to_recommend]).recommended_words
   end
 end

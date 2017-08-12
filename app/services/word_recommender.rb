@@ -1,19 +1,26 @@
 class WordRecommender
-  def initialize(ratings)
+  def initialize(ratings, mode, num_to_recommend = 60)
     @ratings = ratings
+    @mode = mode
+    @num_to_rec = num_to_recommend
   end
 
   def recommended_words
-    return ['nothing entered'] unless @ratings.any?
+    return ['Please rate at least 5 words'] unless @ratings.size >= 5
     write_ratings_to_temp_file
-    result = `Rscript #{Rails.root}/bin/rscript/threatwords.r #{Rails.root} #{file_name}`
+    result =
+      `Rscript #{Rails.root}/bin/rscript/threatwords.r #{Rails.root} #{file_name} #{@mode} #{@num_to_rec}`
     parse_result(result)
   end
 
   private
 
   def parse_result(r_script_output)
-    r_script_output.gsub(/\[\d+\,] /, '').delete('"').split(/[ \n]+/).map(&:strip).select(&:present?)[1..-1]
+    result = r_script_output.
+             gsub(/\[|\d+|\,|\] /, '').delete('"').split(/[ \n]+/).
+             map(&:strip).select(&:present?)
+    result = result.in_groups_of(2) if @mode == 3
+    result[1..-1]
   end
 
   def sess_token
