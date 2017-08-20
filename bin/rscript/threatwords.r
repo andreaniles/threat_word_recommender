@@ -8,7 +8,7 @@ if(length(args) > 0) {
   root_path = args[1]
   ratings_file_name = args[2]
   recommender_version = args[3]
-  numbertorecommend = if (length(args) < 4) 60 else args[4]
+  numbertorecommend = if (length(args) < 4) 60 else as.integer(args[4])
 } else {
   root_path = "/Users/andreaniles/threat_word_recommender"
   ratings_file_name = "/Users/andreaniles/threat_word_recommender/test/fixtures/test.csv"
