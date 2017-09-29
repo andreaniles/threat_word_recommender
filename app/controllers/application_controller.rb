@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
 
   def create
     words_with_values = WORDS.select { |word| params[word].present? }
-    @ratings = params.slice(*words_with_values)
+    @ratings = params.slice(*words_with_values).transform_values { |v| (v.to_i + 1).to_s }
     @result = WordRecommender.new(@ratings, 3, params[:num_to_recommend]).recommended_words
   end
 end

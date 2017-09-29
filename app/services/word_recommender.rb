@@ -20,7 +20,7 @@ class WordRecommender
              gsub(/\[|\d+|\,|\] /, '').delete('"').split(/[ \n]+/).
              map(&:strip).select(&:present?)
     result = result.in_groups_of(2) if @mode == 3
-    result[1..-1]
+    result[0..-1]
   end
 
   def sess_token

@@ -171,4 +171,4 @@ norm.user.ratings <- center_rowmeans(user.word.ratings)
       recs.paired.order <- merge(recsall,recs.paired, by = "word_threat")
       recs <- recs.paired.order[order(recs.paired.order$order),c(1,3)]
     }
-    print(recs)
+    prmatrix(recs, collab=rep("", 2))
