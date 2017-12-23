@@ -12,7 +12,7 @@ if(length(args) > 0) {
 } else {
   root_path = "/Users/andreaniles/threat_word_recommender"
   ratings_file_name = "/Users/andreaniles/threat_word_recommender/test/fixtures/test.csv"
-  recommender_version = 1
+  recommender_version = 2
   numbertorecommend = 60
 }
 
